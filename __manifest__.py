@@ -1,5 +1,5 @@
 {
-    'name': 'Odoo Shopify Automation',
+    'name': 'Odoo Shopify Connector Automation',
     'version': '17.0.1.0.0',
     'summary': 'Advanced Shopify-Odoo Connector by ECOSIRE (PRIVATE) LIMITED',
     'description': 'Comprehensive, real-time, and automated integration between Odoo and Shopify. Developed by ECOSIRE (PRIVATE) LIMITED.',
