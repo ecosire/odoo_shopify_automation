@@ -31,7 +31,7 @@ class ShopifyCustomer(models.Model):
         """
         if not instance:
             raise UserError(_('No Shopify instance provided.'))
-        url = f"{instance.shop_url}/admin/api/2023-10/customers.json"
+        url = f"{instance.shop_url}/admin/api/2024-01/customers.json"
         try:
             response = requests.get(url, auth=(instance.api_key, instance.password), timeout=20)
             if response.status_code == 200:
@@ -171,3 +171,19 @@ class ShopifyCustomer(models.Model):
         })
         # (Scaffold) Actual export logic to be implemented
         return True 
+
+    @api.model
+    def _run_customer_import_cron(self):
+        """
+        Cron job method to automatically import customers from all active Shopify instances.
+        """
+        instances = self.env['shopify.instance'].search([('active', '=', True), ('state', '=', 'connected')])
+        for instance in instances:
+            try:
+                self.import_customers_from_shopify(instance)
+            except Exception as e:
+                self.env['shopify.log'].create({
+                    'name': 'Cron Customer Import Error',
+                    'log_type': 'error',
+                    'message': f'Error importing customers for instance {instance.name}: {str(e)}',
+                }) 

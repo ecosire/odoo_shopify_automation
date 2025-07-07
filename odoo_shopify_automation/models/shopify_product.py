@@ -33,7 +33,7 @@ class ShopifyProduct(models.Model):
         """
         if not instance:
             raise UserError(_('No Shopify instance provided.'))
-        url = f"{instance.shop_url}/admin/api/2023-10/products.json"
+        url = f"{instance.shop_url}/admin/api/2024-01/products.json"
         try:
             response = requests.get(url, auth=(instance.api_key, instance.password), timeout=20)
             if response.status_code == 200:
@@ -213,11 +213,11 @@ class ShopifyProduct(models.Model):
                 # Check if product already exists in Shopify
                 if product_mapping.shopify_product_id:
                     # Update existing product
-                    url = f"{instance.shop_url}/admin/api/2023-10/products/{product_mapping.shopify_product_id}.json"
+                    url = f"{instance.shop_url}/admin/api/2024-01/products/{product_mapping.shopify_product_id}.json"
                     response = requests.put(url, auth=(instance.api_key, instance.password), json=product_data, timeout=20)
                 else:
                     # Create new product
-                    url = f"{instance.shop_url}/admin/api/2023-10/products.json"
+                    url = f"{instance.shop_url}/admin/api/2024-01/products.json"
                     response = requests.post(url, auth=(instance.api_key, instance.password), json=product_data, timeout=20)
                 
                 if response.status_code in [200, 201]:
@@ -260,3 +260,19 @@ class ShopifyProduct(models.Model):
         })
         
         return True 
+
+    @api.model
+    def _run_product_import_cron(self):
+        """
+        Cron job method to automatically import products from all active Shopify instances.
+        """
+        instances = self.env['shopify.instance'].search([('active', '=', True), ('state', '=', 'connected')])
+        for instance in instances:
+            try:
+                self.import_products_from_shopify(instance)
+            except Exception as e:
+                self.env['shopify.log'].create({
+                    'name': 'Cron Product Import Error',
+                    'log_type': 'error',
+                    'message': f'Error importing products for instance {instance.name}: {str(e)}',
+                }) 

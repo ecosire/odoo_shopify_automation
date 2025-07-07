@@ -9,11 +9,6 @@
                     <h1>Shopify Automation Dashboard</h1>
                     <div class="oe_button_box" name="button_box">
                         <button type="action" name="action_shopify_instance" string="Instances" class="btn-primary"/>
-                        <button type="action" name="action_shopify_product" string="Products" class="btn-secondary"/>
-                        <button type="action" name="action_shopify_order" string="Orders" class="btn-secondary"/>
-                        <button type="action" name="action_shopify_customer" string="Customers" class="btn-secondary"/>
-                        <button type="action" name="action_shopify_queue_job" string="Queue Jobs" class="btn-secondary"/>
-                        <button type="action" name="action_shopify_log" string="Logs" class="btn-secondary"/>
                     </div>
                     <p>KPIs, charts, and sync status will be displayed here in future updates.</p>
                     <div class="o_stat_box">

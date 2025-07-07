@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <data noupdate="1">
+        <!-- Product Import Cron Job -->
+        <record id="ir_cron_shopify_import_products" model="ir.cron">
+            <field name="name">Shopify: Import Products</field>
+            <field name="model_id" ref="model_shopify_product"/>
+            <field name="state">code</field>
+            <field name="code">model._run_product_import_cron()</field>
+            <field name="interval_number">30</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Order Import Cron Job -->
+        <record id="ir_cron_shopify_import_orders" model="ir.cron">
+            <field name="name">Shopify: Import Orders</field>
+            <field name="model_id" ref="model_shopify_order"/>
+            <field name="state">code</field>
+            <field name="code">model._run_order_import_cron()</field>
+            <field name="interval_number">15</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Customer Import Cron Job -->
+        <record id="ir_cron_shopify_import_customers" model="ir.cron">
+            <field name="name">Shopify: Import Customers</field>
+            <field name="model_id" ref="model_shopify_customer"/>
+            <field name="state">code</field>
+            <field name="code">model._run_customer_import_cron()</field>
+            <field name="interval_number">60</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+
+        <!-- Queue Job Processing Cron Job -->
+        <record id="ir_cron_shopify_process_queue" model="ir.cron">
+            <field name="name">Shopify: Process Queue Jobs</field>
+            <field name="model_id" ref="model_shopify_queue_job"/>
+            <field name="state">code</field>
+            <field name="code">model._run_queue_processing_cron()</field>
+            <field name="interval_number">5</field>
+            <field name="interval_type">minutes</field>
+            <field name="numbercall">-1</field>
+            <field name="doall" eval="False"/>
+            <field name="active" eval="True"/>
+        </record>
+    </data>
+</odoo> 

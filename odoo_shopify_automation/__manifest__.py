@@ -1,6 +1,6 @@
 {
-    'name': 'Odoo Shopify Connector Automation',
-    'version': '17.0.1.0.0',
+    'name': 'Odoo Shopify Automation',
+    'version': '18.0.1.0.0',
     'summary': 'Advanced Shopify-Odoo Connector by ECOSIRE (PRIVATE) LIMITED',
     'description': 'Comprehensive, real-time, and automated integration between Odoo and Shopify. Developed by ECOSIRE (PRIVATE) LIMITED.',
     'author': 'ECOSIRE (PRIVATE) LIMITED',
@@ -9,6 +9,7 @@
     'depends': ['base', 'sale_management', 'stock', 'account'],
     'data': [
         'security/ir.model.access.csv',
+        'data/ir_cron_data.xml',
         'views/menu.xml',
         'views/shopify_instance_view.xml',
         'views/shopify_product_view.xml',
@@ -23,4 +24,5 @@
     'installable': True,
     'application': True,
     'license': 'LGPL-3',
+    'assets': {},
 } 

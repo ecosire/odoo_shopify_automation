@@ -28,4 +28,77 @@ class ShopifyQueueJob(models.Model):
     error_message = fields.Text('Error Message')
     create_date = fields.Datetime('Created On', readonly=True)
     write_date = fields.Datetime('Last Updated', readonly=True)
-    note = fields.Text('Notes') 
+    note = fields.Text('Notes')
+
+    @api.model
+    def _run_queue_processing_cron(self):
+        """
+        Cron job method to process pending queue jobs.
+        """
+        pending_jobs = self.search([('status', '=', 'pending')])
+        for job in pending_jobs:
+            try:
+                job.process_job()
+            except Exception as e:
+                job.write({
+                    'status': 'failed',
+                    'error_message': str(e)
+                })
+                self.env['shopify.log'].create({
+                    'name': 'Queue Job Processing Error',
+                    'log_type': 'error',
+                    'job_id': job.id,
+                    'message': f'Error processing job {job.name}: {str(e)}',
+                })
+
+    def process_job(self):
+        # Implementation of process_job method
+        return True
+
+    def process_job_failed(self):
+        # Implementation of process_job_failed method
+        return True
+
+    def process_job_done(self):
+        # Implementation of process_job_done method
+        return True
+
+    def process_job_cancelled(self):
+        # Implementation of process_job_cancelled method
+        return True
+
+    def process_job_in_progress(self):
+        # Implementation of process_job_in_progress method
+        return True
+
+    def process_job_pending(self):
+        # Implementation of process_job_pending method
+        return True
+
+    def process_job_import_product(self):
+        # Implementation of process_job_import_product method
+        return True
+
+    def process_job_export_product(self):
+        # Implementation of process_job_export_product method
+        return True
+
+    def process_job_import_order(self):
+        # Implementation of process_job_import_order method
+        return True
+
+    def process_job_export_order(self):
+        # Implementation of process_job_export_order method
+        return True
+
+    def process_job_import_customer(self):
+        # Implementation of process_job_import_customer method
+        return True
+
+    def process_job_export_customer(self):
+        # Implementation of process_job_export_customer method
+        return True
+
+    def process_job_other(self):
+        # Implementation of process_job_other method
+        return True 

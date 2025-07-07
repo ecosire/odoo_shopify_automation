@@ -30,7 +30,7 @@ class ShopifyInstance(models.Model):
 
     def action_test_connection(self):
         self.ensure_one()
-        url = f"{self.shop_url}/admin/api/2023-10/shop.json"
+        url = f"{self.shop_url}/admin/api/2024-01/shop.json"
         try:
             response = requests.get(url, auth=(self.api_key, self.password), timeout=10)
             if response.status_code == 200:

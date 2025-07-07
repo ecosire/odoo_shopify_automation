@@ -1,4 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- Root Menu -->
     <menuitem id="menu_odoo_shopify_automation_root" name="Shopify Automation" sequence="10"/>
+    
+    <!-- Dashboard -->
+    <menuitem id="menu_shopify_dashboard" name="Dashboard" parent="menu_odoo_shopify_automation_root" sequence="1"/>
+    
+    <!-- Configuration -->
+    <menuitem id="menu_shopify_configuration" name="Configuration" parent="menu_odoo_shopify_automation_root" sequence="10"/>
+    
+    <!-- Instances -->
+    <menuitem id="menu_shopify_instance" name="Shopify Instances" parent="menu_shopify_configuration" sequence="1"/>
+    
+    <!-- Synchronization -->
+    <menuitem id="menu_shopify_sync" name="Synchronization" parent="menu_odoo_shopify_automation_root" sequence="20"/>
+    
+    <!-- Products -->
+    <menuitem id="menu_shopify_product" name="Products" parent="menu_shopify_sync" sequence="1"/>
+    
+    <!-- Orders -->
+    <menuitem id="menu_shopify_order" name="Orders" parent="menu_shopify_sync" sequence="2"/>
+    
+    <!-- Customers -->
+    <menuitem id="menu_shopify_customer" name="Customers" parent="menu_shopify_sync" sequence="3"/>
+    
+    <!-- Queue Jobs -->
+    <menuitem id="menu_shopify_queue_job" name="Queue Jobs" parent="menu_shopify_sync" sequence="4"/>
+    
+    <!-- Logs -->
+    <menuitem id="menu_shopify_log" name="Logs" parent="menu_shopify_sync" sequence="5"/>
+    
+    <!-- Scheduled Jobs -->
+    <menuitem id="menu_shopify_cron" name="Scheduled Jobs" parent="menu_shopify_configuration" sequence="2"/>
 </odoo> 

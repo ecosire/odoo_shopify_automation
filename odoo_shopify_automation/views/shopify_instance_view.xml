@@ -21,11 +21,7 @@
             <form string="Shopify Instance">
                 <sheet>
                     <div class="oe_button_box" name="button_box">
-                        <button name="%(action_shopify_product)d" type="action" string="Products" icon="fa-cube"/>
-                        <button name="%(action_shopify_order)d" type="action" string="Orders" icon="fa-shopping-cart"/>
-                        <button name="%(action_shopify_customer)d" type="action" string="Customers" icon="fa-user"/>
-                        <button name="%(action_shopify_queue_job)d" type="action" string="Queue Jobs" icon="fa-tasks"/>
-                        <button name="%(action_shopify_log)d" type="action" string="Logs" icon="fa-list-alt"/>
+                        <button name="action_test_connection" type="object" string="Test Connection" class="btn-primary"/>
                     </div>
                     <group>
                         <field name="name"/>
@@ -40,9 +36,6 @@
                         <field name="last_sync"/>
                         <field name="note"/>
                     </group>
-                    <footer>
-                        <button name="action_test_connection" type="object" string="Test Connection" class="btn-primary"/>
-                    </footer>
                 </sheet>
             </form>
         </field>
@@ -59,5 +52,5 @@
         </field>
     </record>
 
-    <menuitem id="menu_shopify_instance" name="Shopify Instances" parent="menu_odoo_shopify_automation_root" action="action_shopify_instance" sequence="1"/>
+    <menuitem id="menu_shopify_instance" name="Shopify Instances" parent="menu_shopify_configuration" action="action_shopify_instance" sequence="1"/>
 </odoo> 

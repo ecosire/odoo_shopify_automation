@@ -1,3 +1,16 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
 access_shopify_instance,access.shopify.instance,model_shopify_instance,base.group_system,1,1,1,1
-access_shopify_instance_user,access.shopify.instance.user,model_shopify_instance,base.group_user,1,1,1,1 
+access_shopify_instance_manager,access.shopify.instance.manager,model_shopify_instance,base.group_system,1,1,1,1
+access_shopify_instance_user,access.shopify.instance.user,model_shopify_instance,base.group_user,1,1,1,0
+access_shopify_product_manager,access.shopify.product.manager,model_shopify_product,base.group_system,1,1,1,1
+access_shopify_product_user,access.shopify.product.user,model_shopify_product,base.group_user,1,1,1,0
+access_shopify_order_manager,access.shopify.order.manager,model_shopify_order,base.group_system,1,1,1,1
+access_shopify_order_user,access.shopify.order.user,model_shopify_order,base.group_user,1,1,1,0
+access_shopify_customer_manager,access.shopify.customer.manager,model_shopify_customer,base.group_system,1,1,1,1
+access_shopify_customer_user,access.shopify.customer.user,model_shopify_customer,base.group_user,1,1,1,0
+access_shopify_queue_job_manager,access.shopify.queue.job.manager,model_shopify_queue_job,base.group_system,1,1,1,1
+access_shopify_queue_job_user,access.shopify.queue.job.user,model_shopify_queue_job,base.group_user,1,0,0,0
+access_shopify_log_manager,access.shopify.log.manager,model_shopify_log,base.group_system,1,1,1,1
+access_shopify_log_user,access.shopify.log.user,model_shopify_log,base.group_user,1,0,0,0
+access_shopify_cron_manager,access.shopify.cron.manager,model_shopify_cron,base.group_system,1,1,1,1
+access_shopify_cron_user,access.shopify.cron.user,model_shopify_cron,base.group_user,1,0,0,0 
