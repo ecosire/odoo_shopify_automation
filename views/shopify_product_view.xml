@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopify_product_tree" model="ir.ui.view">
+        <field name="name">shopify.product.tree</field>
+        <field name="model">shopify.product</field>
+        <field name="arch" type="xml">
+            <tree string="Shopify Products">
+                <field name="name"/>
+                <field name="shopify_product_id"/>
+                <field name="shopify_variant_id"/>
+                <field name="odoo_product_id"/>
+                <field name="instance_id"/>
+                <field name="sync_status"/>
+                <field name="last_sync"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_shopify_product_form" model="ir.ui.view">
+        <field name="name">shopify.product.form</field>
+        <field name="model">shopify.product</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Product">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="shopify_product_id"/>
+                        <field name="shopify_variant_id"/>
+                        <field name="odoo_product_id"/>
+                        <field name="instance_id"/>
+                        <field name="sync_status"/>
+                        <field name="last_sync"/>
+                        <field name="active"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_shopify_product" model="ir.actions.act_window">
+        <field name="name">Shopify Products</field>
+        <field name="res_model">shopify.product</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Shopify product mappings will appear here after sync.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_shopify_product" name="Shopify Products" parent="menu_odoo_shopify_automation_root" action="action_shopify_product" sequence="2"/>
+</odoo> 

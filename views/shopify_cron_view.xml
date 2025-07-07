@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopify_cron_tree" model="ir.ui.view">
+        <field name="name">shopify.cron.tree</field>
+        <field name="model">shopify.cron</field>
+        <field name="arch" type="xml">
+            <tree string="Shopify Crons">
+                <field name="name"/>
+                <field name="cron_type"/>
+                <field name="instance_id"/>
+                <field name="active"/>
+                <field name="last_run"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_shopify_cron_form" model="ir.ui.view">
+        <field name="name">shopify.cron.form</field>
+        <field name="model">shopify.cron</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Cron">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="cron_type"/>
+                        <field name="instance_id"/>
+                        <field name="active"/>
+                        <field name="last_run"/>
+                        <field name="note"/>
+                    </group>
+                    <footer>
+                        <button name="run_cron" type="object" string="Run Now" class="btn-primary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_shopify_cron" model="ir.actions.act_window">
+        <field name="name">Shopify Crons</field>
+        <field name="res_model">shopify.cron</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Scheduled sync jobs for Shopify will appear here.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_shopify_cron" name="Scheduled Jobs" parent="menu_odoo_shopify_automation_root" action="action_shopify_cron" sequence="7"/>
+</odoo> 

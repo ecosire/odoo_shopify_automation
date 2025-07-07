@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopify_instance_tree" model="ir.ui.view">
+        <field name="name">shopify.instance.tree</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <tree string="Shopify Instances">
+                <field name="name"/>
+                <field name="shop_url"/>
+                <field name="company_id"/>
+                <field name="state"/>
+                <field name="active"/>
+            </tree>
+        </field>
+    </record>
+
+    <record id="view_shopify_instance_form" model="ir.ui.view">
+        <field name="name">shopify.instance.form</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Instance">
+                <sheet>
+                    <div class="oe_button_box" name="button_box">
+                        <button name="%(action_shopify_product)d" type="action" string="Products" icon="fa-cube"/>
+                        <button name="%(action_shopify_order)d" type="action" string="Orders" icon="fa-shopping-cart"/>
+                        <button name="%(action_shopify_customer)d" type="action" string="Customers" icon="fa-user"/>
+                        <button name="%(action_shopify_queue_job)d" type="action" string="Queue Jobs" icon="fa-tasks"/>
+                        <button name="%(action_shopify_log)d" type="action" string="Logs" icon="fa-list-alt"/>
+                    </div>
+                    <group>
+                        <field name="name"/>
+                        <field name="shop_url"/>
+                        <field name="api_key"/>
+                        <field name="password" password="True"/>
+                        <field name="shared_secret" password="True"/>
+                        <field name="access_token"/>
+                        <field name="company_id"/>
+                        <field name="active"/>
+                        <field name="state"/>
+                        <field name="last_sync"/>
+                        <field name="note"/>
+                    </group>
+                    <footer>
+                        <button name="action_test_connection" type="object" string="Test Connection" class="btn-primary"/>
+                    </footer>
+                </sheet>
+            </form>
+        </field>
+    </record>
+
+    <record id="action_shopify_instance" model="ir.actions.act_window">
+        <field name="name">Shopify Instances</field>
+        <field name="res_model">shopify.instance</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Create and configure your Shopify store connection here.
+            </p>
+        </field>
+    </record>
+
+    <menuitem id="menu_shopify_instance" name="Shopify Instances" parent="menu_odoo_shopify_automation_root" action="action_shopify_instance" sequence="1"/>
+</odoo> 

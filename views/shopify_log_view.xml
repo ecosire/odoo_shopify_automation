@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopify_log_tree" model="ir.ui.view">
+        <field name="name">shopify.log.tree</field>
+        <field name="model">shopify.log</field>
+        <field name="arch" type="xml">
+            <tree string="Shopify Logs">
+                <field name="name"/>
+                <field name="log_type"/>
+                <field name="job_id"/>
+                <field name="message"/>
+                <field name="create_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_shopify_log_form" model="ir.ui.view">
+        <field name="name">shopify.log.form</field>
+        <field name="model">shopify.log</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Log">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="log_type"/>
+                        <field name="job_id"/>
+                        <field name="message"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_shopify_log" model="ir.actions.act_window">
+        <field name="name">Shopify Logs</field>
+        <field name="res_model">shopify.log</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Shopify sync logs will appear here.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_shopify_log" name="Logs" parent="menu_odoo_shopify_automation_root" action="action_shopify_log" sequence="6"/>
+</odoo> 

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopify_queue_job_tree" model="ir.ui.view">
+        <field name="name">shopify.queue.job.tree</field>
+        <field name="model">shopify.queue.job</field>
+        <field name="arch" type="xml">
+            <tree string="Shopify Queue Jobs">
+                <field name="name"/>
+                <field name="job_type"/>
+                <field name="instance_id"/>
+                <field name="status"/>
+                <field name="error_message"/>
+                <field name="create_date"/>
+                <field name="write_date"/>
+            </tree>
+        </field>
+    </record>
+    <record id="view_shopify_queue_job_form" model="ir.ui.view">
+        <field name="name">shopify.queue.job.form</field>
+        <field name="model">shopify.queue.job</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Queue Job">
+                <sheet>
+                    <group>
+                        <field name="name"/>
+                        <field name="job_type"/>
+                        <field name="instance_id"/>
+                        <field name="related_model"/>
+                        <field name="related_record_id"/>
+                        <field name="status"/>
+                        <field name="error_message"/>
+                        <field name="note"/>
+                    </group>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_shopify_queue_job" model="ir.actions.act_window">
+        <field name="name">Shopify Queue Jobs</field>
+        <field name="res_model">shopify.queue.job</field>
+        <field name="view_mode">tree,form</field>
+        <field name="help" type="html">
+            <p class="o_view_nocontent_smiling_face">
+                Shopify import/export jobs will appear here.
+            </p>
+        </field>
+    </record>
+    <menuitem id="menu_shopify_queue_job" name="Queue Jobs" parent="menu_odoo_shopify_automation_root" action="action_shopify_queue_job" sequence="5"/>
+</odoo> 

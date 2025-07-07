@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <record id="view_shopify_dashboard" model="ir.ui.view">
+        <field name="name">shopify.automation.dashboard</field>
+        <field name="model">shopify.instance</field>
+        <field name="arch" type="xml">
+            <form string="Shopify Automation Dashboard">
+                <sheet>
+                    <h1>Shopify Automation Dashboard</h1>
+                    <div class="oe_button_box" name="button_box">
+                        <button type="action" name="action_shopify_instance" string="Instances" class="btn-primary"/>
+                        <button type="action" name="action_shopify_product" string="Products" class="btn-secondary"/>
+                        <button type="action" name="action_shopify_order" string="Orders" class="btn-secondary"/>
+                        <button type="action" name="action_shopify_customer" string="Customers" class="btn-secondary"/>
+                        <button type="action" name="action_shopify_queue_job" string="Queue Jobs" class="btn-secondary"/>
+                        <button type="action" name="action_shopify_log" string="Logs" class="btn-secondary"/>
+                    </div>
+                    <p>KPIs, charts, and sync status will be displayed here in future updates.</p>
+                    <div class="o_stat_box">
+                        <div class="o_stat">
+                            <span class="o_stat_value">Products: <t t-esc="len(env['shopify.product'].search([]))"/></span>
+                            <span class="o_stat_value">Orders: <t t-esc="len(env['shopify.order'].search([]))"/></span>
+                            <span class="o_stat_value">Customers: <t t-esc="len(env['shopify.customer'].search([]))"/></span>
+                            <span class="o_stat_value">Queue Jobs: <t t-esc="len(env['shopify.queue.job'].search([]))"/></span>
+                            <span class="o_stat_value">Errors: <t t-esc="len(env['shopify.log'].search([('log_type', '=', 'error')]))"/></span>
+                        </div>
+                    </div>
+                </sheet>
+            </form>
+        </field>
+    </record>
+    <record id="action_shopify_dashboard" model="ir.actions.act_window">
+        <field name="name">Shopify Dashboard</field>
+        <field name="res_model">shopify.instance</field>
+        <field name="view_mode">form</field>
+        <field name="view_id" ref="view_shopify_dashboard"/>
+        <field name="target">current</field>
+    </record>
+    <menuitem id="menu_shopify_dashboard" name="Dashboard" parent="menu_odoo_shopify_automation_root" action="action_shopify_dashboard" sequence="0"/>
+</odoo> 
