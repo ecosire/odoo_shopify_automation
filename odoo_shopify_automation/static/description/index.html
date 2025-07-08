@@ -1,0 +1,402 @@
+<!DOCTYPE html
+    PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Odoo Shopify Connector Automation - Advanced Integration Solution</title>
+    <style type="text/css">
+        body {
+            font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 25px;
+            background-color: #ffffff;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+        }
+
+        h1, h2, h3 {
+            color: #2c3e50;
+            margin-top: 0;
+        }
+
+        h1 {
+            font-size: 2.8em;
+            text-align: center;
+            margin-bottom: 15px;
+            color: #95bf47;
+        }
+
+        h2 {
+            font-size: 2em;
+            border-bottom: 2px solid #95bf47;
+            padding-bottom: 10px;
+            margin-top: 40px;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 1.4em;
+            color: #7a9e3a;
+            margin-top: 25px;
+            margin-bottom: 10px;
+        }
+
+        p, li {
+            font-size: 1em;
+            color: #34495e;
+            margin-bottom: 10px;
+        }
+
+        ul {
+            padding-left: 20px;
+            list-style-type: disc;
+        }
+        
+        .feature-list li {
+            padding-left: 10px;
+            margin-bottom: 12px;
+            font-size: 1.05em;
+        }
+
+        .feature-list strong {
+            color: #95bf47;
+        }
+
+        .screenshot-gallery {
+            margin-top: 20px;
+            margin-bottom: 30px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+
+        .screenshot-card {
+            background-color: #fdfdfd;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        .screenshot-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+        }
+
+        .screenshot-card img {
+            max-width: 100%;
+            height: auto;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+        }
+
+        .screenshot-card .caption {
+            font-size: 0.9em;
+            color: #555;
+            font-weight: bold;
+            min-height: 30px;
+        }
+
+        .code-snippet {
+            background-color: #e9ecef;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+            font-size: 0.9em;
+            color: #c7254e;
+        }
+
+        .pro-tip {
+            background-color: #e7f3fe;
+            border-left: 4px solid #95bf47;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .pro-tip p {
+            margin-bottom: 5px;
+        }
+
+        .contact-section p, .developer-section p {
+            margin-bottom: 5px;
+        }
+
+        .whatsapp-button {
+            display: inline-block;
+            background-color: #25D366;
+            color: white !important;
+            padding: 10px 20px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-weight: bold;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+
+        .whatsapp-button:hover {
+            background-color: #1DA851;
+            color: white !important;
+        }
+
+        .whatsapp-button img {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+            vertical-align: middle;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .feature-card {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .feature-card h3 {
+            color: #95bf47;
+            margin-top: 0;
+            font-size: 1.2em;
+        }
+
+        .sync-status {
+            display: inline-block;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-size: 0.8em;
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+
+        .status-synced { background-color: #d4edda; color: #155724; }
+        .status-pending { background-color: #fff3cd; color: #856404; }
+        .status-error { background-color: #f8d7da; color: #721c24; }
+
+    </style>
+</head>
+
+<body>
+    <div class="container">
+
+        <h1>🛍️ Odoo Shopify Connector Automation</h1>
+        <p style="text-align: center; font-size: 1.2em; color: #555; margin-bottom: 30px;">
+            Advanced, real-time, and automated integration between Odoo and Shopify. 
+            Seamlessly sync products, orders, and customers across platforms.
+        </p>
+
+        <h2>Overview 🌟</h2>
+        <p>
+            The <strong>Odoo Shopify Connector Automation</strong> by ECOSIRE (PRIVATE) LIMITED is a comprehensive 
+            integration solution that bridges the gap between your Odoo ERP system and Shopify e-commerce platform. 
+            This enterprise-grade connector provides real-time synchronization, automated workflows, and robust 
+            error handling to ensure your business operations run smoothly across both platforms.
+        </p>
+
+        <h2>Core Integration Features 🔗</h2>
+        <div class="feature-grid">
+            <div class="feature-card">
+                <h3>🏪 Multi-Store Management</h3>
+                <ul>
+                    <li>Connect multiple Shopify stores to one Odoo instance</li>
+                    <li>Built-in API connection testing and validation</li>
+                    <li>Store-specific configuration management</li>
+                    <li>Real-time connection status monitoring</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>📦 Product Synchronization</h3>
+                <ul>
+                    <li>Bidirectional product sync (Odoo ↔ Shopify)</li>
+                    <li>Automatic product variant handling</li>
+                    <li>Real-time product mapping and relationships</li>
+                    <li>Intelligent duplicate prevention</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>🛒 Order Management</h3>
+                <ul>
+                    <li>Automatic order import from Shopify</li>
+                    <li>Customer auto-creation for new orders</li>
+                    <li>Order line mapping and synchronization</li>
+                    <li>Reference tracking between platforms</li>
+                </ul>
+            </div>
+
+            <div class="feature-card">
+                <h3>👥 Customer Management</h3>
+                <ul>
+                    <li>Bidirectional customer synchronization</li>
+                    <li>Email-based duplicate prevention</li>
+                    <li>Contact information sync (names, emails, phones)</li>
+                    <li>Customer ranking and relationship management</li>
+                </ul>
+            </div>
+        </div>
+
+        <h2>Automation & Scheduling ⚙️</h2>
+        <ul class="feature-list">
+            <li><strong>🕐 Automated Cron Jobs:</strong> 
+                <ul>
+                    <li>Product import: Every 30 minutes</li>
+                    <li>Order import: Every 15 minutes</li>
+                    <li>Customer import: Every 60 minutes</li>
+                    <li>Queue processing: Every 5 minutes</li>
+                </ul>
+            </li>
+            <li><strong>📋 Queue Management System:</strong> Background job processing with status tracking (Pending, In Progress, Done, Failed, Cancelled)</li>
+            <li><strong>🔄 Manual Sync Wizard:</strong> On-demand synchronization for any operation type</li>
+            <li><strong>⚡ Real-time Webhooks:</strong> Instant updates via Shopify webhooks for products, orders, and customers</li>
+        </ul>
+
+        <h2>Monitoring & Analytics 📊</h2>
+        <ul class="feature-list">
+            <li><strong>📈 Comprehensive Dashboard:</strong> Visual overview of sync status across all stores</li>
+            <li><strong>📝 Detailed Logging:</strong> Complete audit trail of all sync operations and errors</li>
+            <li><strong>🔍 Error Tracking:</strong> Detailed error messages with troubleshooting guidance</li>
+            <li><strong>📊 Performance Metrics:</strong> Monitor sync success rates and processing times</li>
+        </ul>
+
+        <h2>Security & Access Control 🔒</h2>
+        <ul class="feature-list">
+            <li><strong>🔐 Role-based Access:</strong> Configure user permissions for different operations</li>
+            <li><strong>🏢 Multi-Company Support:</strong> Data isolation between different companies</li>
+            <li><strong>🔑 Secure API Management:</strong> Encrypted storage of Shopify API credentials</li>
+            <li><strong>🛡️ Data Validation:</strong> Ensure data integrity during sync operations</li>
+        </ul>
+
+        <h2>Visual Walkthrough: See the Connector in Action! 📸</h2>
+        <p>
+            Below are snapshots of the Odoo Shopify Connector, showcasing its powerful and intuitive interface.
+        </p>
+
+        <div class="screenshot-gallery">
+            <div class="screenshot-card">
+                <img src="Screen 1.png" alt="Shopify Instance Management" />
+                <p class="caption">Shopify Instance Management: Configure and manage store connections.</p>
+            </div>
+            <div class="screenshot-card">
+                <img src="Screen 2.png" alt="Product Synchronization" />
+                <p class="caption">Product Synchronization: Map and sync products between platforms.</p>
+            </div>
+            <div class="screenshot-card">
+                <img src="Screen 3.png" alt="Order Management" />
+                <p class="caption">Order Management: Import and manage Shopify orders in Odoo.</p>
+            </div>
+            <div class="screenshot-card">
+                <img src="Screen 4.png" alt="Customer Management" />
+                <p class="caption">Customer Management: Sync customer data across platforms.</p>
+            </div>
+            <div class="screenshot-card">
+                <img src="Screen 5.png" alt="Queue Job Monitoring" />
+                <p class="caption">Queue Job Monitoring: Track background sync operations.</p>
+            </div>
+            <div class="screenshot-card">
+                <img src="Screen 6.png" alt="Dashboard Overview" />
+                <p class="caption">Dashboard Overview: Complete sync status and analytics.</p>
+            </div>
+        </div>
+        <p style="text-align:center; font-size:0.8em; color:#777;">
+            <em>(Actual interface may vary slightly based on Odoo version and theme)</em>
+        </p>
+
+        <h2>Key Benefits 🎯</h2>
+        <ul>
+            <li><strong>⏰ Time Savings:</strong> Automate manual data entry and synchronization tasks</li>
+            <li><strong>🔄 Real-time Sync:</strong> Keep your data consistent across both platforms</li>
+            <li><strong>📈 Increased Efficiency:</strong> Streamline your e-commerce and ERP operations</li>
+            <li><strong>🛡️ Error Reduction:</strong> Minimize manual errors with automated processes</li>
+            <li><strong>📊 Better Insights:</strong> Unified view of your business data</li>
+            <li><strong>🚀 Scalability:</strong> Handle multiple stores and high transaction volumes</li>
+        </ul>
+
+        <h2>Perfect For 🎯</h2>
+        <ul>
+            <li>E-commerce businesses using both Odoo and Shopify</li>
+            <li>Companies with multiple Shopify stores</li>
+            <li>Businesses requiring real-time inventory synchronization</li>
+            <li>Organizations needing automated order processing</li>
+            <li>Companies looking to streamline customer data management</li>
+        </ul>
+
+        <h2>Easy Installation 📂</h2>
+        <ol>
+            <li>Install the <code class="code-snippet">odoo_shopify_automation</code> module in your Odoo instance</li>
+            <li>Configure your Shopify API credentials</li>
+            <li>Set up your Shopify store instances</li>
+            <li>Configure sync schedules and preferences</li>
+            <li>Start syncing your data automatically!</li>
+        </ol>
+
+        <h2>Pro-Tip for Optimal Use 📌</h2>
+        <div class="pro-tip">
+            <p><strong>Best Practices for Shopify Integration:</strong></p>
+            <ul>
+                <li>Start with a test store to validate your configuration</li>
+                <li>Monitor the sync logs regularly for any issues</li>
+                <li>Set up webhooks for real-time updates</li>
+                <li>Use the manual sync wizard for initial data migration</li>
+                <li>Configure appropriate sync intervals based on your business needs</li>
+            </ul>
+            <p>This approach ensures smooth operation and helps you maintain data integrity across platforms.</p>
+        </div>
+
+        <h2>Technical Requirements 🔧</h2>
+        <ul>
+            <li><strong>Odoo Version:</strong> 17.0 or 18.0</li>
+            <li><strong>Dependencies:</strong> base, sale_management, stock, account</li>
+            <li><strong>Shopify API:</strong> Admin API access with appropriate permissions</li>
+            <li><strong>Network:</strong> Stable internet connection for API communication</li>
+        </ul>
+
+        <h2>Developed with Excellence by ECOSIRE 🚀</h2>
+        <div class="developer-section" style="text-align: center; padding: 15px; background-color:#f8f9fa; border-radius: 6px;">
+            <p>The Odoo Shopify Connector is proudly developed by <strong>ECOSIRE (PRIVATE) LIMITED</strong>.</p>
+            <p>We specialize in:</p>
+            <p><strong>E-commerce Integration | Custom ERP Solutions | Odoo Development | Business Automation</strong></p>
+            <p>Committed to providing enterprise-grade solutions that drive business growth and efficiency.</p>
+        </div>
+
+        <h2>Need Help or Have Questions? 💬</h2>
+        <div class="contact-section" style="text-align: center; padding: 15px;">
+            <p style="margin-bottom: 10px; font-size: 1em;">
+                <strong>Visit our Website:</strong> <a href="https://www.ecosire.com/" target="_blank" style="color: #95bf47; text-decoration: none;">https://www.ecosire.com/</a>
+            </p>
+            <a href="https://wa.me/923130168262" target="_blank" class="whatsapp-button">
+                <img src="data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%20width%3D%2220%22%20height%3D%2220%22%20viewBox%3D%220%200%2024%2024%22%20fill%3D%22white%22%3E%3Cpath%20d%3D%22M.057%2024l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556%205.338-11.891%2011.893-11.891%203.181.001%206.167%201.24%208.413%203.488%202.245%202.248%203.487%205.235%203.487%208.413%200%206.557-5.338%2011.892-11.894%2011.892-1.99%200-3.903-.52-5.586-1.457l-6.162%201.687zm6.487-5.54l-.297-.186c-1.473-.924-2.363-2.397-2.808-4.058-.428-1.6-.36-3.232.2-4.746.536-1.44%201.493-2.689%202.789-3.648%201.264-.954%202.767-1.526%204.358-1.6.011-.001.023-.001.034-.001.043%200%20.085.001.128.002%201.658.028%203.259.531%204.62%201.43%201.383.92%202.493%202.148%203.225%203.595.718%201.416%201.074%202.997%201.028%204.585-.054%201.716-.67%203.348-1.733%204.743-1.038%201.359-2.428%202.382-4.012%202.962-.342.12-.696.219-1.059.294l-.221.047c-.683.142-1.374.221-2.073.221-1.69%200-3.306-.551-4.688-1.527l-.238-.169zm9.231-7.106c-.272-.442-.994-.641-1.39-.684-.248-.026-.506-.032-.755-.032-.238%200-.502.004-.73.031-.549.062-1.125.301-1.533.712-.216.216-.432.432-.647.647-.494.494-1.011.964-1.581%201.369-.058.04-.115.08-.173.122-.351.253-.688.517-1.004.797-.168.15-.336.3-.504.451-.191.168-.382.336-.573.504-.604.547-1.035%201.037-1.328%201.668-.035.074-.069.148-.104.222-.043.083-.087.166-.13.249-.031.06-.062.12-.093.18-.078.15-.156.3-.234.451-.032.06-.064.12-.096.18-.043.083-.087.166-.13.249-.031.06-.062.12-.093.18-.078.15-.156.3-.234.451-.093.18-.186.36-.279.54-.109.211-.218.422-.327.633-.123.242-.246.484-.369.726-.191.382-.382.764-.573%201.146l-.04.08c-.22.46-.32.98-.29%201.51.03.58.27%201.11.69%201.55.47.48.98.79%201.53.98%20.71.24%201.47.25%202.18.06.75-.2%201.41-.63%201.95-1.18.45-.47.82-.99%201.12-1.56.26-.49.46-1.02.59-1.57.02-.08.04-.16.06-.24l.02-.08c.02-.08.04-.16.06-.24.07-.28.11-.57.11-.86s-.04-.58-.11-.86c-.02-.08-.04-.16-.06-.24l-.02-.08c-.02-.08-.04-.16-.06-.24-.13-.55-.33-1.08-.59-1.57-.3-.57-.67-1.09-1.12-1.56-.54-.55-1.2-.98-1.95-1.18-.06-.01-.12-.02-.18-.03z%22/%3E%3C/svg%3E" alt="WhatsApp Icon"/>
+                Contact us on WhatsApp
+            </a>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding-top: 20px; border-top: 1px solid #eee;">
+            <p style="font-size: 0.9em; color: #777;">&copy; 2024-2025 ECOSIRE (PRIVATE) LIMITED. All Rights Reserved.</p>
+        </div>
+    </div>
+</body>
+</html>
