@@ -4,9 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Odoo Shopify Connector Automation - Advanced Integration Solution</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
     <style>
+        /* Custom Icon Font */
+        @font-face {
+            font-family: 'CustomIcons';
+            src: url('data:font/woff2;base64,d09GMgABAAAAAA...') format('woff2');
+            font-weight: normal;
+            font-style: normal;
+        }
+
+        /* System Font Stack */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+
         :root {
             --primary-color: #95bf47;
             --primary-dark: #7a9e3a;
@@ -40,7 +49,7 @@
         }
 
         body {
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
             line-height: 1.6;
             color: var(--text-primary);
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
@@ -54,6 +63,32 @@
             padding: 2rem;
             position: relative;
         }
+
+        /* Custom Icons using CSS */
+        .icon {
+            display: inline-block;
+            width: 1em;
+            height: 1em;
+            vertical-align: middle;
+            background-size: contain;
+            background-repeat: no-repeat;
+            background-position: center;
+        }
+
+        .icon-cart::before { content: "🛒"; }
+        .icon-store::before { content: "🏪"; }
+        .icon-box::before { content: "📦"; }
+        .icon-bag::before { content: "🛍️"; }
+        .icon-users::before { content: "👥"; }
+        .icon-clock::before { content: "⏰"; }
+        .icon-tasks::before { content: "📋"; }
+        .icon-magic::before { content: "✨"; }
+        .icon-bolt::before { content: "⚡"; }
+        .icon-globe::before { content: "🌐"; }
+        .icon-whatsapp::before { content: "📱"; }
+        .icon-email::before { content: "✉️"; }
+        .icon-check::before { content: "✅"; }
+        .icon-arrow::before { content: "➡️"; }
 
         /* Header Section */
         .hero-section {
@@ -85,9 +120,9 @@
 
         .hero-icon {
             font-size: 4rem;
-            color: var(--primary-color);
             margin-bottom: 1.5rem;
             animation: bounce 2s infinite;
+            display: block;
         }
 
         .hero-title {
@@ -152,7 +187,6 @@
 
         .feature-icon {
             font-size: 2.5rem;
-            color: var(--primary-color);
             margin-bottom: 1.5rem;
             display: block;
         }
@@ -176,11 +210,10 @@
         }
 
         .feature-list li::before {
-            content: '✓';
+            content: "✅";
             position: absolute;
             left: 0;
-            color: var(--success-color);
-            font-weight: bold;
+            font-size: 0.9rem;
         }
 
         /* Section Headers */
@@ -290,7 +323,6 @@
 
         .benefit-icon {
             font-size: 1.5rem;
-            color: var(--primary-color);
             margin-right: 1rem;
             min-width: 30px;
         }
@@ -360,7 +392,8 @@
             color: var(--primary-dark);
         }
 
-        .cta-button i {
+        .cta-button::before {
+            content: "📱";
             margin-right: 0.5rem;
         }
 
@@ -395,7 +428,6 @@
 
         .contact-icon {
             font-size: 2rem;
-            color: var(--primary-color);
             margin-bottom: 1rem;
         }
 
@@ -535,6 +567,12 @@
             0%, 100% { transform: translateY(0px); }
             50% { transform: translateY(-10px); }
         }
+
+        /* Custom Emoji Icons */
+        .emoji-icon {
+            font-size: 1em;
+            line-height: 1;
+        }
     </style>
 </head>
 <body>
@@ -543,7 +581,7 @@
         <section class="hero-section">
             <div class="hero-content">
                 <div class="hero-icon floating">
-                    <i class="fas fa-shopping-cart"></i>
+                    🛒
                 </div>
                 <h1 class="hero-title">Odoo Shopify Connector Automation</h1>
                 <p class="hero-subtitle">
@@ -561,7 +599,7 @@
 
         <div class="features-grid">
             <div class="feature-card loading">
-                <i class="fas fa-store feature-icon"></i>
+                <div class="feature-icon">🏪</div>
                 <h3 class="feature-title">Multi-Store Management</h3>
                 <ul class="feature-list">
                     <li>Connect multiple Shopify stores to one Odoo instance</li>
@@ -572,7 +610,7 @@
             </div>
 
             <div class="feature-card loading">
-                <i class="fas fa-boxes feature-icon"></i>
+                <div class="feature-icon">📦</div>
                 <h3 class="feature-title">Product Synchronization</h3>
                 <ul class="feature-list">
                     <li>Bidirectional product sync (Odoo ↔ Shopify)</li>
@@ -583,7 +621,7 @@
             </div>
 
             <div class="feature-card loading">
-                <i class="fas fa-shopping-bag feature-icon"></i>
+                <div class="feature-icon">🛍️</div>
                 <h3 class="feature-title">Order Management</h3>
                 <ul class="feature-list">
                     <li>Automatic order import from Shopify</li>
@@ -594,7 +632,7 @@
             </div>
 
             <div class="feature-card loading">
-                <i class="fas fa-users feature-icon"></i>
+                <div class="feature-icon">👥</div>
                 <h3 class="feature-title">Customer Management</h3>
                 <ul class="feature-list">
                     <li>Bidirectional customer synchronization</li>
@@ -614,19 +652,19 @@
         <div class="benefits-section">
             <div class="benefits-grid">
                 <div class="benefit-item loading">
-                    <i class="fas fa-clock benefit-icon"></i>
+                    <span class="benefit-icon">⏰</span>
                     <span class="benefit-text">Automated cron jobs (products: 30min, orders: 15min, customers: 60min)</span>
                 </div>
                 <div class="benefit-item loading">
-                    <i class="fas fa-tasks benefit-icon"></i>
+                    <span class="benefit-icon">📋</span>
                     <span class="benefit-text">Queue management system with background processing</span>
                 </div>
                 <div class="benefit-item loading">
-                    <i class="fas fa-magic benefit-icon"></i>
+                    <span class="benefit-icon">✨</span>
                     <span class="benefit-text">Manual sync wizard for on-demand operations</span>
                 </div>
                 <div class="benefit-item loading">
-                    <i class="fas fa-bolt benefit-icon"></i>
+                    <span class="benefit-icon">⚡</span>
                     <span class="benefit-text">Real-time webhooks for instant updates</span>
                 </div>
             </div>
@@ -671,7 +709,6 @@
                 <h2 class="cta-title">Ready to Transform Your Business?</h2>
                 <p class="cta-subtitle">Start integrating your Odoo ERP with Shopify today</p>
                 <a href="https://wa.me/923130168262" class="cta-button">
-                    <i class="fab fa-whatsapp"></i>
                     Get Started Now
                 </a>
             </div>
@@ -684,17 +721,17 @@
             
             <div class="contact-grid">
                 <div class="contact-item loading">
-                    <i class="fas fa-globe contact-icon"></i>
+                    <div class="contact-icon">🌐</div>
                     <div class="contact-title">Visit Our Website</div>
                     <a href="https://www.ecosire.com/" class="contact-link" target="_blank">www.ecosire.com</a>
                 </div>
                 <div class="contact-item loading">
-                    <i class="fab fa-whatsapp contact-icon"></i>
+                    <div class="contact-icon">📱</div>
                     <div class="contact-title">WhatsApp Support</div>
                     <a href="https://wa.me/923130168262" class="contact-link" target="_blank">+92 313 0168262</a>
                 </div>
                 <div class="contact-item loading">
-                    <i class="fas fa-envelope contact-icon"></i>
+                    <div class="contact-icon">✉️</div>
                     <div class="contact-title">Email Support</div>
                     <a href="mailto:info@ecosire.com" class="contact-link">info@ecosire.com</a>
                 </div>
