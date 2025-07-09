@@ -4,14 +4,14 @@
         <field name="name">shopify.customer.tree</field>
         <field name="model">shopify.customer</field>
         <field name="arch" type="xml">
-            <tree string="Shopify Customers">
+            <list string="Shopify Customers">
                 <field name="shopify_customer_id"/>
                 <field name="odoo_partner_id"/>
                 <field name="instance_id"/>
                 <field name="sync_status"/>
                 <field name="last_sync"/>
                 <field name="active"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="view_shopify_customer_form" model="ir.ui.view">
@@ -36,7 +36,7 @@
     <record id="action_shopify_customer" model="ir.actions.act_window">
         <field name="name">Shopify Customers</field>
         <field name="res_model">shopify.customer</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Shopify customer mappings will appear here after sync.

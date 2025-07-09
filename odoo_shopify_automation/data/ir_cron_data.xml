@@ -9,8 +9,6 @@
             <field name="code">model._run_product_import_cron()</field>
             <field name="interval_number">30</field>
             <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False"/>
             <field name="active" eval="True"/>
         </record>
 
@@ -22,8 +20,6 @@
             <field name="code">model._run_order_import_cron()</field>
             <field name="interval_number">15</field>
             <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False"/>
             <field name="active" eval="True"/>
         </record>
 
@@ -35,8 +31,6 @@
             <field name="code">model._run_customer_import_cron()</field>
             <field name="interval_number">60</field>
             <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False"/>
             <field name="active" eval="True"/>
         </record>
 
@@ -48,8 +42,6 @@
             <field name="code">model._run_queue_processing_cron()</field>
             <field name="interval_number">5</field>
             <field name="interval_type">minutes</field>
-            <field name="numbercall">-1</field>
-            <field name="doall" eval="False"/>
             <field name="active" eval="True"/>
         </record>
     </data>

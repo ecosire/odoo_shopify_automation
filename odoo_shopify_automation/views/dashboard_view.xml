@@ -8,16 +8,16 @@
                 <sheet>
                     <h1>Shopify Automation Dashboard</h1>
                     <div class="oe_button_box" name="button_box">
-                        <button type="action" name="action_shopify_instance" string="Instances" class="btn-primary"/>
+                        <button type="action" name="%(odoo_shopify_automation.action_shopify_instance)d" string="Instances" class="btn-primary"/>
                     </div>
                     <p>KPIs, charts, and sync status will be displayed here in future updates.</p>
                     <div class="o_stat_box">
                         <div class="o_stat">
-                            <span class="o_stat_value">Products: <t t-esc="len(env['shopify.product'].search([]))"/></span>
-                            <span class="o_stat_value">Orders: <t t-esc="len(env['shopify.order'].search([]))"/></span>
-                            <span class="o_stat_value">Customers: <t t-esc="len(env['shopify.customer'].search([]))"/></span>
-                            <span class="o_stat_value">Queue Jobs: <t t-esc="len(env['shopify.queue.job'].search([]))"/></span>
-                            <span class="o_stat_value">Errors: <t t-esc="len(env['shopify.log'].search([('log_type', '=', 'error')]))"/></span>
+                            <span class="o_stat_value">Products: 0</span>
+                            <span class="o_stat_value">Orders: 0</span>
+                            <span class="o_stat_value">Customers: 0</span>
+                            <span class="o_stat_value">Queue Jobs: 0</span>
+                            <span class="o_stat_value">Errors: 0</span>
                         </div>
                     </div>
                 </sheet>
