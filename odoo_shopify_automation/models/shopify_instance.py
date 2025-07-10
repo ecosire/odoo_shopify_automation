@@ -24,6 +24,14 @@ class ShopifyInstance(models.Model):
     last_sync = fields.Datetime('Last Sync')
     note = fields.Text('Notes')
 
+    # Dashboard KPIs
+    product_count = fields.Integer(string='Products', compute='_compute_dashboard_kpis')
+    order_count = fields.Integer(string='Orders', compute='_compute_dashboard_kpis')
+    customer_count = fields.Integer(string='Customers', compute='_compute_dashboard_kpis')
+    queue_job_count = fields.Integer(string='Queue Jobs', compute='_compute_dashboard_kpis')
+    error_count = fields.Integer(string='Errors', compute='_compute_dashboard_kpis')
+    sales_chart_data = fields.Json(string='Sales Chart Data', compute='_compute_dashboard_kpis')
+
     _sql_constraints = [
         ('shop_url_uniq', 'unique(shop_url, company_id)', 'A Shopify instance with this URL already exists for this company!'),
     ]
@@ -51,4 +59,30 @@ class ShopifyInstance(models.Model):
                 raise UserError(_(f"Connection failed! Status: {response.status_code}\n{response.text}"))
         except Exception as e:
             self.state = 'error'
-            raise UserError(_(f"Connection error: {str(e)}")) 
+            raise UserError(_(f"Connection error: {str(e)}"))
+
+    def _compute_dashboard_kpis(self):
+        for rec in self:
+            rec.product_count = self.env['shopify.product'].search_count([('instance_id', '=', rec.id), ('active', '=', True)])
+            rec.order_count = self.env['shopify.order'].search_count([('instance_id', '=', rec.id), ('active', '=', True)])
+            rec.customer_count = self.env['shopify.customer'].search_count([('instance_id', '=', rec.id), ('active', '=', True)])
+            rec.queue_job_count = self.env['shopify.queue.job'].search_count([('instance_id', '=', rec.id)])
+            rec.error_count = self.env['shopify.log'].search_count([('job_id.instance_id', '=', rec.id), ('log_type', '=', 'error')])
+            # Sales chart: sales per month for last 12 months
+            orders = self.env['shopify.order'].search([
+                ('instance_id', '=', rec.id),
+                ('active', '=', True),
+                ('odoo_order_id', '!=', False)
+            ])
+            sales_by_month = {}
+            for order in orders:
+                if order.odoo_order_id and order.odoo_order_id.date_order:
+                    month = order.odoo_order_id.date_order.strftime('%Y-%m')
+                    sales_by_month.setdefault(month, 0)
+                    sales_by_month[month] += order.odoo_order_id.amount_total or 0.0
+            # Sort and keep last 12 months
+            sorted_months = sorted(sales_by_month.keys())[-12:]
+            rec.sales_chart_data = {
+                'labels': sorted_months,
+                'values': [round(sales_by_month[m], 2) for m in sorted_months]
+            } 

@@ -19,23 +19,33 @@
         <field name="model">shopify.instance</field>
         <field name="arch" type="xml">
             <form string="Shopify Instance">
+                <header>
+                    <button name="action_test_connection" type="object" string="Test Connection" class="btn-primary"/>
+                    <field name="state" widget="statusbar" statusbar_visible="draft,connected,error"/>
+                </header>
                 <sheet>
-                    <div class="oe_button_box" name="button_box">
-                        <button name="action_test_connection" type="object" string="Test Connection" class="btn-primary"/>
-                    </div>
-                    <group>
-                        <field name="name"/>
-                        <field name="shop_url"/>
-                        <field name="api_key"/>
-                        <field name="password" password="True"/>
-                        <field name="shared_secret" password="True"/>
-                        <field name="access_token"/>
+                    <h2>
+                        <field name="name" placeholder="Instance Name"/>
+                    </h2>
+                    <group string="Store Information">
+                        <field name="shop_url" placeholder="https://yourstore.myshopify.com"/>
                         <field name="company_id"/>
                         <field name="active"/>
-                        <field name="state"/>
-                        <field name="last_sync"/>
-                        <field name="note"/>
                     </group>
+                    <group string="API Credentials">
+                        <field name="api_key" placeholder="API Key"/>
+                        <field name="password" password="True" placeholder="API Password"/>
+                        <field name="shared_secret" password="True" placeholder="Shared Secret"/>
+                        <field name="access_token" placeholder="Access Token (OAuth, optional)"/>
+                    </group>
+                    <notebook>
+                        <page string="Sync Info">
+                            <group>
+                                <field name="last_sync"/>
+                                <field name="note"/>
+                            </group>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
