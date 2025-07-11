@@ -93,61 +93,31 @@ Developed by ECOSIRE (PRIVATE) LIMITED - Enterprise Solutions Division.
         'payment'
     ],
     'data': [
-        # Security
-        'security/ir.model.access.csv',
+        # Security - Groups must be loaded before access rights
         'security/security.xml',
         'security/record_rules.xml',
+        'security/ir.model.access.csv',
         
         # Data
         'data/ir_cron_data.xml',
         'data/ir_sequence_data.xml',
-        'data/product_data.xml',
-        'data/delivery_carrier_data.xml',
-        'data/webhook_data.xml',
-        'data/order_status_data.xml',
-        'data/risk_rules_data.xml',
         
-        # Views
-        'views/menu.xml',
+        # Views - Individual model views must be loaded before dashboard to define actions
         'views/shopify_instance_view.xml',
         'views/shopify_product_view.xml',
         'views/shopify_order_view.xml',
         'views/shopify_customer_view.xml',
         'views/shopify_queue_job_view.xml',
         'views/shopify_log_view.xml',
-        'views/dashboard_view.xml',
         'views/shopify_cron_view.xml',
         'views/shopify_webhook_view.xml',
-        'views/shopify_payout_view.xml',
-        'views/shopify_carrier_view.xml',
-        'views/shopify_location_view.xml',
-        'views/shopify_risk_view.xml',
-        'views/shopify_analytics_view.xml',
-        'views/shopify_config_view.xml',
-        'views/shopify_product_variant_view.xml',
-        'views/shopify_product_image_view.xml',
-        'views/shopify_workflow_view.xml',
-        'views/shopify_tax_view.xml',
-        'views/shopify_currency_view.xml',
-        'views/shopify_inventory_view.xml',
-        'views/shopify_returns_view.xml',
-        'views/shopify_marketing_view.xml',
-        'views/shopify_report_view.xml',
+        'views/dashboard_view.xml',
         
-        # Wizards
+        # Wizards - Must be loaded before menu to define actions
         'wizard/manual_sync_wizard_view.xml',
-        'wizard/configuration_wizard_view.xml',
-        'wizard/import_export_wizard_view.xml',
-        'wizard/risk_assessment_wizard_view.xml',
-        'wizard/analytics_wizard_view.xml',
-        'wizard/webhook_test_wizard_view.xml',
-        'wizard/migration_wizard_view.xml',
         
-        # Reports
-        'report/shopify_reports.xml',
-        'report/shopify_payout_report.xml',
-        'report/shopify_analytics_report.xml',
-        'report/shopify_inventory_report.xml',
+        # Menu - Must be loaded last to reference all actions
+        'views/menu.xml',
     ],
     'images': [
         'static/description/cover.png',
@@ -166,19 +136,10 @@ Developed by ECOSIRE (PRIVATE) LIMITED - Enterprise Solutions Division.
     'assets': {
         'web.assets_backend': [
             'odoo_shopify_automation/static/src/css/dashboard.css',
-            'odoo_shopify_automation/static/src/css/modern_ui.css',
             'odoo_shopify_automation/static/src/js/dashboard.js',
-            'odoo_shopify_automation/static/src/js/analytics.js',
-            'odoo_shopify_automation/static/src/js/webhooks.js',
-            'odoo_shopify_automation/static/src/js/notifications.js',
-            'odoo_shopify_automation/static/src/xml/dashboard.xml',
-            'odoo_shopify_automation/static/src/xml/analytics.xml',
             'https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.min.js',
             'https://cdn.jsdelivr.net/npm/apexcharts@3.45.0/dist/apexcharts.min.js',
             'https://cdn.jsdelivr.net/npm/apexcharts@3.45.0/dist/apexcharts.css',
-        ],
-        'web.assets_frontend': [
-            'odoo_shopify_automation/static/src/css/frontend.css',
         ],
     },
     'support': 'https://www.ecosire.com/support',
@@ -187,7 +148,7 @@ Developed by ECOSIRE (PRIVATE) LIMITED - Enterprise Solutions Division.
     'currency': 'EUR',
     'external_dependencies': {
         'python': [
-            'shopify',
+            'ShopifyAPI',
             'requests',
             'python-dateutil',
             'pandas',

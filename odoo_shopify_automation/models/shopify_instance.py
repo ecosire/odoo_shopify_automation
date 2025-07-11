@@ -25,12 +25,14 @@ class ShopifyInstance(models.Model):
     note = fields.Text('Notes')
 
     # Dashboard KPIs
+    total_sales = fields.Monetary(string='Total Sales', currency_field='currency_id', compute='_compute_dashboard_kpis')
     product_count = fields.Integer(string='Products', compute='_compute_dashboard_kpis')
     order_count = fields.Integer(string='Orders', compute='_compute_dashboard_kpis')
     customer_count = fields.Integer(string='Customers', compute='_compute_dashboard_kpis')
     queue_job_count = fields.Integer(string='Queue Jobs', compute='_compute_dashboard_kpis')
     error_count = fields.Integer(string='Errors', compute='_compute_dashboard_kpis')
     sales_chart_data = fields.Json(string='Sales Chart Data', compute='_compute_dashboard_kpis')
+    currency_id = fields.Many2one('res.currency', string='Currency', default=lambda self: self.env.company.currency_id)
 
     _sql_constraints = [
         ('shop_url_uniq', 'unique(shop_url, company_id)', 'A Shopify instance with this URL already exists for this company!'),
@@ -68,6 +70,14 @@ class ShopifyInstance(models.Model):
             rec.customer_count = self.env['shopify.customer'].search_count([('instance_id', '=', rec.id), ('active', '=', True)])
             rec.queue_job_count = self.env['shopify.queue.job'].search_count([('instance_id', '=', rec.id)])
             rec.error_count = self.env['shopify.log'].search_count([('job_id.instance_id', '=', rec.id), ('log_type', '=', 'error')])
+            
+            # Calculate total sales
+            orders = self.env['shopify.order'].search([
+                ('instance_id', '=', rec.id),
+                ('active', '=', True),
+                ('odoo_order_id', '!=', False)
+            ])
+            rec.total_sales = sum(orders.mapped('odoo_order_id.amount_total') or [0.0])
             # Sales chart: sales per month for last 12 months
             orders = self.env['shopify.order'].search([
                 ('instance_id', '=', rec.id),

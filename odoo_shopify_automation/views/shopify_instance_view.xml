@@ -1,8 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <record id="view_shopify_instance_tree" model="ir.ui.view">
-        <field name="name">shopify.instance.list</field>
+        <field name="name">shopify.instance.tree</field>
         <field name="model">shopify.instance</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Shopify Instances">
                 <field name="name"/>
@@ -24,19 +25,23 @@
                     <field name="state" widget="statusbar" statusbar_visible="draft,connected,error"/>
                 </header>
                 <sheet>
-                    <h2>
-                        <field name="name" placeholder="Instance Name"/>
-                    </h2>
-                    <group string="Store Information">
-                        <field name="shop_url" placeholder="https://yourstore.myshopify.com"/>
-                        <field name="company_id"/>
-                        <field name="active"/>
-                    </group>
-                    <group string="API Credentials">
-                        <field name="api_key" placeholder="API Key"/>
-                        <field name="password" password="True" placeholder="API Password"/>
-                        <field name="shared_secret" password="True" placeholder="Shared Secret"/>
-                        <field name="access_token" placeholder="Access Token (OAuth, optional)"/>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Instance Name"/>
+                        </h1>
+                    </div>
+                    <group>
+                        <group string="Store Information">
+                            <field name="shop_url" placeholder="https://yourstore.myshopify.com"/>
+                            <field name="company_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="API Credentials">
+                            <field name="api_key" placeholder="API Key"/>
+                            <field name="password" password="True" placeholder="API Password"/>
+                            <field name="shared_secret" password="True" placeholder="Shared Secret"/>
+                            <field name="access_token" placeholder="Access Token (OAuth, optional)"/>
+                        </group>
                     </group>
                     <notebook>
                         <page string="Sync Info">
@@ -62,5 +67,4 @@
         </field>
     </record>
 
-    <menuitem id="menu_shopify_instance" name="Shopify Instances" parent="menu_shopify_configuration" action="action_shopify_instance" sequence="1"/>
 </odoo> 

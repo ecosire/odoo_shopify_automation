@@ -65,19 +65,19 @@
             <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
         </record>
 
-        <!-- Shopify Payout Transaction Multi-Company Rule -->
-        <record id="rule_shopify_payout_transaction_multi_company" model="ir.rule">
-            <field name="name">Shopify Payout Transaction Multi-Company</field>
-            <field name="model_id" ref="model_shopify_payout_transaction"/>
-            <field name="domain_force">[('payout_id.instance_id.company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
         <!-- Shopify Carrier Multi-Company Rule -->
         <record id="rule_shopify_carrier_multi_company" model="ir.rule">
             <field name="name">Shopify Carrier Multi-Company</field>
             <field name="model_id" ref="model_shopify_carrier"/>
             <field name="domain_force">[('delivery_carrier_id.company_id', 'in', company_ids)]</field>
+            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
+        </record>
+
+        <!-- Shopify Risk Multi-Company Rule -->
+        <record id="rule_shopify_risk_multi_company" model="ir.rule">
+            <field name="name">Shopify Risk Multi-Company</field>
+            <field name="model_id" ref="model_shopify_risk"/>
+            <field name="domain_force">[('instance_id.company_id', 'in', company_ids)]</field>
             <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
         </record>
 
@@ -89,30 +89,6 @@
             <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
         </record>
 
-        <!-- Shopify Config Multi-Company Rule -->
-        <record id="rule_shopify_config_multi_company" model="ir.rule">
-            <field name="name">Shopify Config Multi-Company</field>
-            <field name="model_id" ref="model_shopify_config"/>
-            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
-        <!-- Shopify Product Variant Multi-Company Rule -->
-        <record id="rule_shopify_product_variant_multi_company" model="ir.rule">
-            <field name="name">Shopify Product Variant Multi-Company</field>
-            <field name="model_id" ref="model_shopify_product_variant"/>
-            <field name="domain_force">[('product_id.instance_id.company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
-        <!-- Shopify Product Image Multi-Company Rule -->
-        <record id="rule_shopify_product_image_multi_company" model="ir.rule">
-            <field name="name">Shopify Product Image Multi-Company</field>
-            <field name="model_id" ref="model_shopify_product_image"/>
-            <field name="domain_force">[('product_id.instance_id.company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
         <!-- Shopify Workflow Multi-Company Rule -->
         <record id="rule_shopify_workflow_multi_company" model="ir.rule">
             <field name="name">Shopify Workflow Multi-Company</field>
@@ -121,50 +97,10 @@
             <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
         </record>
 
-        <!-- Shopify Tax Multi-Company Rule -->
-        <record id="rule_shopify_tax_multi_company" model="ir.rule">
-            <field name="name">Shopify Tax Multi-Company</field>
-            <field name="model_id" ref="model_shopify_tax"/>
-            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
-        <!-- Shopify Currency Multi-Company Rule -->
-        <record id="rule_shopify_currency_multi_company" model="ir.rule">
-            <field name="name">Shopify Currency Multi-Company</field>
-            <field name="model_id" ref="model_shopify_currency"/>
-            <field name="domain_force">[('company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
-        <!-- Shopify Inventory Multi-Company Rule -->
-        <record id="rule_shopify_inventory_multi_company" model="ir.rule">
-            <field name="name">Shopify Inventory Multi-Company</field>
-            <field name="model_id" ref="model_shopify_inventory"/>
-            <field name="domain_force">[('instance_id.company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
-        <!-- Shopify Returns Multi-Company Rule -->
-        <record id="rule_shopify_returns_multi_company" model="ir.rule">
-            <field name="name">Shopify Returns Multi-Company</field>
-            <field name="model_id" ref="model_shopify_returns"/>
-            <field name="domain_force">[('instance_id.company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
-        <!-- Shopify Marketing Multi-Company Rule -->
-        <record id="rule_shopify_marketing_multi_company" model="ir.rule">
-            <field name="name">Shopify Marketing Multi-Company</field>
-            <field name="model_id" ref="model_shopify_marketing"/>
-            <field name="domain_force">[('instance_id.company_id', 'in', company_ids)]</field>
-            <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
-        </record>
-
-        <!-- Shopify Report Multi-Company Rule -->
-        <record id="rule_shopify_report_multi_company" model="ir.rule">
-            <field name="name">Shopify Report Multi-Company</field>
-            <field name="model_id" ref="model_shopify_report"/>
+        <!-- Shopify Cron Multi-Company Rule -->
+        <record id="rule_shopify_cron_multi_company" model="ir.rule">
+            <field name="name">Shopify Cron Multi-Company</field>
+            <field name="model_id" ref="model_shopify_cron"/>
             <field name="domain_force">[('instance_id.company_id', 'in', company_ids)]</field>
             <field name="groups" eval="[(4, ref('group_shopify_user'))]"/>
         </record>

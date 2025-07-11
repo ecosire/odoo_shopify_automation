@@ -3,6 +3,7 @@
     <record id="view_shopify_cron_tree" model="ir.ui.view">
         <field name="name">shopify.cron.tree</field>
         <field name="model">shopify.cron</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Shopify Crons">
                 <field name="name"/>
@@ -13,27 +14,41 @@
             </list>
         </field>
     </record>
+    
     <record id="view_shopify_cron_form" model="ir.ui.view">
         <field name="name">shopify.cron.form</field>
         <field name="model">shopify.cron</field>
         <field name="arch" type="xml">
             <form string="Shopify Cron">
+                <header>
+                    <button name="run_cron" type="object" string="Run Now" class="btn-primary"/>
+                </header>
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Cron Name"/>
+                        </h1>
+                    </div>
                     <group>
-                        <field name="name"/>
-                        <field name="cron_type"/>
-                        <field name="instance_id"/>
-                        <field name="active"/>
-                        <field name="last_run"/>
-                        <field name="note"/>
+                        <group string="Cron Information">
+                            <field name="cron_type"/>
+                            <field name="instance_id"/>
+                            <field name="active"/>
+                        </group>
+                        <group string="Execution">
+                            <field name="last_run"/>
+                        </group>
                     </group>
-                    <footer>
-                        <button name="run_cron" type="object" string="Run Now" class="btn-primary"/>
-                    </footer>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+    
     <record id="action_shopify_cron" model="ir.actions.act_window">
         <field name="name">Shopify Crons</field>
         <field name="res_model">shopify.cron</field>
@@ -44,5 +59,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="menu_shopify_cron" name="Scheduled Jobs" parent="menu_odoo_shopify_automation_root" action="action_shopify_cron" sequence="7"/>
 </odoo> 

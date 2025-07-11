@@ -507,7 +507,7 @@ class ShopifyDashboard extends Component {
         this.env.services.action.doAction({
             type: 'ir.actions.act_window',
             res_model: 'shopify.order',
-            view_mode: 'tree,form',
+            view_mode: 'list,form',
             target: 'current'
         });
     }
@@ -516,7 +516,7 @@ class ShopifyDashboard extends Component {
         this.env.services.action.doAction({
             type: 'ir.actions.act_window',
             res_model: 'shopify.product',
-            view_mode: 'tree,form',
+            view_mode: 'list,form',
             target: 'current'
         });
     }
@@ -525,7 +525,7 @@ class ShopifyDashboard extends Component {
         this.env.services.action.doAction({
             type: 'ir.actions.act_window',
             res_model: 'shopify.customer',
-            view_mode: 'tree,form',
+            view_mode: 'list,form',
             target: 'current'
         });
     }
@@ -534,7 +534,7 @@ class ShopifyDashboard extends Component {
         this.env.services.action.doAction({
             type: 'ir.actions.act_window',
             res_model: 'shopify.queue.job',
-            view_mode: 'tree,form',
+            view_mode: 'list,form',
             target: 'current'
         });
     }
@@ -543,7 +543,7 @@ class ShopifyDashboard extends Component {
         this.env.services.action.doAction({
             type: 'ir.actions.act_window',
             res_model: 'shopify.log',
-            view_mode: 'tree,form',
+            view_mode: 'list,form',
             target: 'current'
         });
     }
@@ -552,7 +552,7 @@ class ShopifyDashboard extends Component {
         this.env.services.action.doAction({
             type: 'ir.actions.act_window',
             res_model: 'shopify.cron',
-            view_mode: 'tree,form',
+            view_mode: 'list,form',
             target: 'current'
         });
     }

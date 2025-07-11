@@ -3,6 +3,7 @@
     <record id="view_shopify_product_tree" model="ir.ui.view">
         <field name="name">shopify.product.tree</field>
         <field name="model">shopify.product</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Shopify Products">
                 <field name="name"/>
@@ -16,27 +17,41 @@
             </list>
         </field>
     </record>
+    
     <record id="view_shopify_product_form" model="ir.ui.view">
         <field name="name">shopify.product.form</field>
         <field name="model">shopify.product</field>
         <field name="arch" type="xml">
             <form string="Shopify Product">
                 <sheet>
+                    <div class="oe_title">
+                        <h1>
+                            <field name="name" placeholder="Product Name"/>
+                        </h1>
+                    </div>
                     <group>
-                        <field name="name"/>
-                        <field name="shopify_product_id"/>
-                        <field name="shopify_variant_id"/>
-                        <field name="odoo_product_id"/>
-                        <field name="instance_id"/>
-                        <field name="sync_status"/>
-                        <field name="last_sync"/>
-                        <field name="active"/>
-                        <field name="note"/>
+                        <group string="Shopify Information">
+                            <field name="shopify_product_id"/>
+                            <field name="shopify_variant_id"/>
+                            <field name="instance_id"/>
+                            <field name="sync_status"/>
+                        </group>
+                        <group string="Odoo Information">
+                            <field name="odoo_product_id"/>
+                            <field name="last_sync"/>
+                            <field name="active"/>
+                        </group>
                     </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+    
     <record id="action_shopify_product" model="ir.actions.act_window">
         <field name="name">Shopify Products</field>
         <field name="res_model">shopify.product</field>
@@ -47,5 +62,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="menu_shopify_product" name="Shopify Products" parent="menu_odoo_shopify_automation_root" action="action_shopify_product" sequence="2"/>
 </odoo> 

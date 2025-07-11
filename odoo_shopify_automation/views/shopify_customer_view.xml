@@ -3,6 +3,7 @@
     <record id="view_shopify_customer_tree" model="ir.ui.view">
         <field name="name">shopify.customer.tree</field>
         <field name="model">shopify.customer</field>
+        <field name="type">list</field>
         <field name="arch" type="xml">
             <list string="Shopify Customers">
                 <field name="shopify_customer_id"/>
@@ -14,6 +15,7 @@
             </list>
         </field>
     </record>
+    
     <record id="view_shopify_customer_form" model="ir.ui.view">
         <field name="name">shopify.customer.form</field>
         <field name="model">shopify.customer</field>
@@ -21,18 +23,27 @@
             <form string="Shopify Customer">
                 <sheet>
                     <group>
-                        <field name="shopify_customer_id"/>
-                        <field name="odoo_partner_id"/>
-                        <field name="instance_id"/>
-                        <field name="sync_status"/>
-                        <field name="last_sync"/>
-                        <field name="active"/>
-                        <field name="note"/>
+                        <group string="Customer Information">
+                            <field name="shopify_customer_id"/>
+                            <field name="odoo_partner_id"/>
+                            <field name="instance_id"/>
+                        </group>
+                        <group string="Sync Information">
+                            <field name="sync_status"/>
+                            <field name="last_sync"/>
+                            <field name="active"/>
+                        </group>
                     </group>
+                    <notebook>
+                        <page string="Notes">
+                            <field name="note"/>
+                        </page>
+                    </notebook>
                 </sheet>
             </form>
         </field>
     </record>
+    
     <record id="action_shopify_customer" model="ir.actions.act_window">
         <field name="name">Shopify Customers</field>
         <field name="res_model">shopify.customer</field>
@@ -43,5 +54,4 @@
             </p>
         </field>
     </record>
-    <menuitem id="menu_shopify_customer" name="Shopify Customers" parent="menu_odoo_shopify_automation_root" action="action_shopify_customer" sequence="4"/>
 </odoo> 

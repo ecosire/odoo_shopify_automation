@@ -152,9 +152,7 @@ class ShopifyAnalytics(models.Model):
     def _compute_inventory_analytics(self):
         for record in self:
             # Calculate total inventory value
-            products = self.env['product.product'].search([
-                ('shopify_instance_id', '=', record.instance_id.id)
-            ])
+            products = self._get_products_in_period(record)
             record.total_inventory_value = sum(products.mapped(lambda p: p.qty_available * p.standard_price))
             
             # Calculate inventory turnover rate
@@ -231,26 +229,30 @@ class ShopifyAnalytics(models.Model):
 
     def _get_orders_in_period(self, record):
         """Get orders within the specified period"""
-        return self.env['sale.order'].search([
-            ('shopify_instance_id', '=', record.instance_id.id),
-            ('date_order', '>=', record.date_from),
-            ('date_order', '<=', record.date_to),
-            ('state', 'in', ['sale', 'done'])
+        shopify_orders = self.env['shopify.order'].search([
+            ('instance_id', '=', record.instance_id.id),
+            ('odoo_order_id.date_order', '>=', record.date_from),
+            ('odoo_order_id.date_order', '<=', record.date_to),
+            ('odoo_order_id.state', 'in', ['sale', 'done'])
         ])
+        return shopify_orders.mapped('odoo_order_id')
 
     def _get_customers_in_period(self, record):
         """Get customers within the specified period"""
-        return self.env['res.partner'].search([
-            ('shopify_instance_id', '=', record.instance_id.id),
-            ('create_date', '>=', record.date_from),
-            ('create_date', '<=', record.date_to)
+        # Get customers from Shopify orders in the period
+        shopify_orders = self.env['shopify.order'].search([
+            ('instance_id', '=', record.instance_id.id),
+            ('odoo_order_id.date_order', '>=', record.date_from),
+            ('odoo_order_id.date_order', '<=', record.date_to)
         ])
+        return shopify_orders.mapped('odoo_order_id.partner_id')
 
     def _get_products_in_period(self, record):
         """Get products within the specified period"""
-        return self.env['product.product'].search([
-            ('shopify_instance_id', '=', record.instance_id.id)
+        shopify_products = self.env['shopify.product'].search([
+            ('instance_id', '=', record.instance_id.id)
         ])
+        return shopify_products.mapped('odoo_product_id')
 
     def _get_visitors_in_period(self, record):
         """Get visitors within the specified period (placeholder)"""
@@ -263,14 +265,14 @@ class ShopifyAnalytics(models.Model):
         previous_date_from = record.date_from - timedelta(days=period_days)
         previous_date_to = record.date_from - timedelta(days=1)
         
-        previous_orders = self.env['sale.order'].search([
-            ('shopify_instance_id', '=', record.instance_id.id),
-            ('date_order', '>=', previous_date_from),
-            ('date_order', '<=', previous_date_to),
-            ('state', 'in', ['sale', 'done'])
+        previous_shopify_orders = self.env['shopify.order'].search([
+            ('instance_id', '=', record.instance_id.id),
+            ('odoo_order_id.date_order', '>=', previous_date_from),
+            ('odoo_order_id.date_order', '<=', previous_date_to),
+            ('odoo_order_id.state', 'in', ['sale', 'done'])
         ])
         
-        return sum(previous_orders.mapped('amount_total'))
+        return sum(previous_shopify_orders.mapped('odoo_order_id.amount_total'))
 
     def _get_marketing_costs_in_period(self, record):
         """Get marketing costs within the specified period"""
@@ -309,12 +311,14 @@ class ShopifyAnalytics(models.Model):
         low_stock_products = []
         
         for product in products:
-            if product.qty_available <= product.reorder_min_qty:
+            # Use a default reorder point of 10 if not set
+            reorder_point = getattr(product, 'reorder_min_qty', 10)
+            if product.qty_available <= reorder_point:
                 low_stock_products.append({
                     'name': product.name,
                     'current_stock': product.qty_available,
-                    'reorder_point': product.reorder_min_qty,
-                    'recommended_order': product.reorder_min_qty - product.qty_available
+                    'reorder_point': reorder_point,
+                    'recommended_order': reorder_point - product.qty_available
                 })
         
         return low_stock_products
@@ -327,10 +331,15 @@ class ShopifyAnalytics(models.Model):
         
         total_score = 0
         for product in products:
-            # Calculate score based on sales, profit margin, and stock turnover
-            sales_score = min(product.sales_count / 100, 1) * 40  # Max 40 points
-            profit_score = min(product.gross_profit_margin / 50, 1) * 30  # Max 30 points
-            turnover_score = min(product.inventory_turnover_rate / 10, 1) * 30  # Max 30 points
+            # Calculate score based on available metrics
+            # Use safe defaults for fields that might not exist
+            sales_count = getattr(product, 'sales_count', 0)
+            gross_profit_margin = getattr(product, 'gross_profit_margin', 0)
+            inventory_turnover_rate = getattr(product, 'inventory_turnover_rate', 0)
+            
+            sales_score = min(sales_count / 100, 1) * 40  # Max 40 points
+            profit_score = min(gross_profit_margin / 50, 1) * 30  # Max 30 points
+            turnover_score = min(inventory_turnover_rate / 10, 1) * 30  # Max 30 points
             
             total_score += sales_score + profit_score + turnover_score
         
@@ -343,7 +352,7 @@ class ShopifyAnalytics(models.Model):
         if not products:
             return 0
         
-        total_cost_of_goods_sold = sum(products.mapped(lambda p: p.sales_count * p.standard_price))
+        total_cost_of_goods_sold = sum(products.mapped(lambda p: getattr(p, 'sales_count', 0) * p.standard_price))
         average_inventory = sum(products.mapped('qty_available')) / len(products)
         
         return total_cost_of_goods_sold / average_inventory if average_inventory > 0 else 0
@@ -359,8 +368,11 @@ class ShopifyAnalytics(models.Model):
         recommendations = []
         
         for product in products:
-            if product.qty_available <= product.reorder_min_qty:
-                recommended_qty = product.reorder_max_qty - product.qty_available
+            reorder_min_qty = getattr(product, 'reorder_min_qty', 10)
+            reorder_max_qty = getattr(product, 'reorder_max_qty', 50)
+            
+            if product.qty_available <= reorder_min_qty:
+                recommended_qty = reorder_max_qty - product.qty_available
                 recommendations.append({
                     'product_name': product.name,
                     'current_stock': product.qty_available,
@@ -388,12 +400,13 @@ class ShopifyAnalytics(models.Model):
 
     def _get_fulfilled_orders_in_period(self, record):
         """Get fulfilled orders in period"""
-        return self.env['sale.order'].search([
-            ('shopify_instance_id', '=', record.instance_id.id),
-            ('date_order', '>=', record.date_from),
-            ('date_order', '<=', record.date_to),
-            ('state', '=', 'done')
+        shopify_orders = self.env['shopify.order'].search([
+            ('instance_id', '=', record.instance_id.id),
+            ('odoo_order_id.date_order', '>=', record.date_from),
+            ('odoo_order_id.date_order', '<=', record.date_to),
+            ('odoo_order_id.state', '=', 'done')
         ])
+        return shopify_orders.mapped('odoo_order_id')
 
     def _calculate_average_processing_time(self, record):
         """Calculate average order processing time"""
@@ -420,12 +433,13 @@ class ShopifyAnalytics(models.Model):
     def _get_returned_orders_in_period(self, record):
         """Get returned orders in period"""
         # This would integrate with returns management system
-        return self.env['sale.order'].search([
-            ('shopify_instance_id', '=', record.instance_id.id),
-            ('date_order', '>=', record.date_from),
-            ('date_order', '<=', record.date_to),
-            ('state', '=', 'cancel')
+        shopify_orders = self.env['shopify.order'].search([
+            ('instance_id', '=', record.instance_id.id),
+            ('odoo_order_id.date_order', '>=', record.date_from),
+            ('odoo_order_id.date_order', '<=', record.date_to),
+            ('odoo_order_id.state', '=', 'cancel')
         ])
+        return shopify_orders.mapped('odoo_order_id')
 
     def _generate_ai_insights(self, record):
         """Generate AI-powered insights"""
@@ -535,8 +549,8 @@ class ShopifyAnalytics(models.Model):
         
         # Group by stock level
         stock_levels = {
-            'In Stock': len(products.filtered(lambda p: p.qty_available > p.reorder_min_qty)),
-            'Low Stock': len(products.filtered(lambda p: 0 < p.qty_available <= p.reorder_min_qty)),
+            'In Stock': len(products.filtered(lambda p: p.qty_available > getattr(p, 'reorder_min_qty', 10))),
+            'Low Stock': len(products.filtered(lambda p: 0 < p.qty_available <= getattr(p, 'reorder_min_qty', 10))),
             'Out of Stock': len(products.filtered(lambda p: p.qty_available == 0))
         }
         
